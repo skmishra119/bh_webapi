@@ -6,11 +6,8 @@ header("Content-Type: application/json");
 
 global $lab_id;
 
-$app->get('/api/users/{lids}', function($request){
-	$lu_ids = explode('::',$request->getAttribute('lids'));
-	$lab_id = trim($lu_ids[0]);
-	//$uid = trim($lu_ids[1]);
-	$qry="select u.id as user_id, u.email_id, concat(u.title,' ',u.first_name,' ',u.last_name) as fullname, date_format(u.updated,'%b %d, %Y %H:%i:%s') as updated, r.name as role from bl_users u left join bl_user_roles ur on u.id=ur.user_id left join bl_roles r on ur.role_id=r.id where u.status='ACTIVE'";
+$app->get('/api/users/', function($request){
+	$qry="select u.id as user_id, u.email_id, u.full_name, r.name as role from bh_users u left join bh_users_bh_roles ur on u.id=ur.user_id left join bh_roles r on ur.role_id=r.id where u.deleted=0";
 	try{
 		$lab_db = new lab_db();
 		$lab_db = $lab_db->connect($lab_id);
@@ -32,9 +29,9 @@ $app->get('/api/roles/{lids}', function($request){
 	//$uid = trim($lu_ids[1]);
 	$qry="select r.id, r.name from bl_roles r where r.status='ACTIVE'";
 	try{
-		$lab_db = new lab_db();
-		$lab_db = $lab_db->connect($lab_id);
-		if($lab_db==null) {
+		$db = new db();
+		$db = $db->connect();
+		if($db==null) {
 			throw new PDOException("Internal server error in connecting databases", 1);
 		}
 		$stmt = $lab_db->query($qry);
@@ -47,7 +44,7 @@ $app->get('/api/roles/{lids}', function($request){
 });
 
 
-$app->get('/api/user/{lids}', function($request){
+/*$app->get('/api/user/{lids}', function($request){
 	$lu_ids = explode('::',$request->getAttribute('lids'));
 	$lab_id = trim($lu_ids[0]);
 	$uid = trim($lu_ids[1]);
@@ -223,4 +220,4 @@ $app->delete('/api/user/{lids}', function($request){
 	} catch(PDOException $e){
 		echo '{"message" : {type": "Error", "msg": "'.$e->getMessage().'"}}';
 	}
-});
+});*/

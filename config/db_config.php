@@ -5,17 +5,17 @@
 //var $lab_id = '';
 
 class db {
-	/*private $dbhost = 'localhost';
-	private $dbuser = 'root';
-	private $dbpass = 'Bintech@123';
-	private $dbname = 'u793955241_labms';
+	private $dbhost = 'localhost';
+	private $dbuser = 'u445724286_bhargawa';
+	private $dbpass = 'Bh@rgw#2@20';
+	private $dbname = 'u445724286_bhargawa';
 
 	public function connect(){
 		$my_con_str = "mysql:host=$this->dbhost;dbname=$this->dbname";
 		$dbCon = new PDO($my_con_str, $this->dbuser, $this->dbpass);
 		$dbCon->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		return $dbCon;
-	}*/
+	}
 }
 
 class uuid_config {
