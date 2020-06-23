@@ -15,7 +15,6 @@ $app->get('/api/users/all', function($request){
 		}
 		$stmt = $db->query($qry);
 		$data = $db->fetchAll(PDO::FETCH_OBJ);
-		$lab_db = null;
 		echo json_encode($data);
 	} catch(PDOException $e){
 		echo '{"message" : {type": "Error", "msg": "'.$e->getMessage().'"}}';
