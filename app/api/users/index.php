@@ -4,18 +4,17 @@ header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods:  *");
 header("Content-Type: application/json");
 
-global $lab_id;
 
-$app->get('/api/users/', function($request){
+$app->get('/api/users/all', function($request){
 	$qry="select u.id as user_id, u.email_id, u.full_name, r.name as role from bh_users u left join bh_users_bh_roles ur on u.id=ur.user_id left join bh_roles r on ur.role_id=r.id where u.deleted=0";
 	try{
-		$lab_db = new lab_db();
-		$lab_db = $lab_db->connect($lab_id);
-		if($lab_db==null) {
+		$db = new db();
+		$db = $db->connect();
+		if($db==null) {
 			throw new PDOException("Internal server error in connecting databases", 1);
 		}
-		$stmt = $lab_db->query($qry);
-		$data = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$stmt = $db->query($qry);
+		$data = $db->fetchAll(PDO::FETCH_OBJ);
 		$lab_db = null;
 		echo json_encode($data);
 	} catch(PDOException $e){
@@ -23,7 +22,7 @@ $app->get('/api/users/', function($request){
 	}
 });
 
-$app->get('/api/roles/{lids}', function($request){
+/*$app->get('/api/roles/{lids}', function($request){
 	$lu_ids = explode('::',$request->getAttribute('lids'));
 	$lab_id = trim($lu_ids[0]);
 	//$uid = trim($lu_ids[1]);
@@ -44,7 +43,7 @@ $app->get('/api/roles/{lids}', function($request){
 });
 
 
-/*$app->get('/api/user/{lids}', function($request){
+$app->get('/api/user/{lids}', function($request){
 	$lu_ids = explode('::',$request->getAttribute('lids'));
 	$lab_id = trim($lu_ids[0]);
 	$uid = trim($lu_ids[1]);

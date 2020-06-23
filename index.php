@@ -20,5 +20,7 @@ $app->get('/', function() {
 });*/
 
 require_once('app/api/home/index.php');
+require_once('app/api/users/index.php');
+
 
 $app->run();

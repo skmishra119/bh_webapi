@@ -8,12 +8,12 @@ class db {
 	private $dbhost = 'localhost';
 	private $dbuser = 'u445724286_bhargawa';
 	private $dbpass = 'Bh@rgw#2@20';
-	private $dbname = 'u445724286_bhargawa';
+	private $dbname = 'u445724286_bhsrgawa';
 
 	public function connect(){
 		$my_con_str = "mysql:host=$this->dbhost;dbname=$this->dbname";
 		$dbCon = new PDO($my_con_str, $this->dbuser, $this->dbpass);
-		$dbCon->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		//$dbCon->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		return $dbCon;
 	}
 }
